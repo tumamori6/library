@@ -169,7 +169,7 @@ function datasCaching($datas,$redis_key,$expire=null){
 
 /*****
 @param  $cache_data hash $propatys array
-@return $multidimensional array
+@return $multi dimensional array
 *****/
 
 function getDatasFromFullCache($full_cache,$propertys){
