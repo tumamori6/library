@@ -43,7 +43,7 @@ function checkRecomBrowser(){
 @return $is_lighthouse_flg bool
 *****/
 
-function is_lighthouse(){
+function isLighthouse(){
 
 	$flg = false;
 	$ua  = strtolower($_SERVER['HTTP_USER_AGENT']);
@@ -60,7 +60,7 @@ function is_lighthouse(){
 /*****
 @return $is_ios_flg bool
 *****/
-function is_ios(){
+function isIos(){
 
 	$bool = false;
 	$ua   = strtolower($_SERVER['HTTP_USER_AGENT']);
