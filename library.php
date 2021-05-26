@@ -148,7 +148,7 @@ $redis = new Redis();
 $redis->connect("localhost",6379);
 
 *****/
-
+/*
 function datasCaching($datas,$redis_key,$expire=null){
 
 	foreach($datas as $key => $data){
@@ -160,12 +160,14 @@ function datasCaching($datas,$redis_key,$expire=null){
 	}
 
 	if ($expire) {
-		$this->_redis->expire($redis_key, $expire);
+		$redis->expire($redis_key, $expire);
 	}
 
 	return $redis->hGetAll($redis_key);
 
 }
+
+*/
 
 /*****
 @param  $cache_data hash $propatys array
@@ -192,5 +194,24 @@ function getDatasFromFullCache($full_cache,$propertys){
 	}
 
 	return $datas;
+
+}
+
+/*****
+@param  $array array $key_name str $order sort_order
+@return $array sortedArray
+*****/
+
+function sortByKey($array,$key_name,$order){
+
+	foreach($array as $key => $val){
+
+		$standard_key_array[$key] = $val[$key_name];
+
+	}
+
+	array_multisort($standard_key_array,$order,$array);
+
+	return $array;
 
 }
