@@ -6,22 +6,22 @@
 function checkRecomBrowser(){
 
 	$ua                   = strtolower($_SERVER['HTTP_USER_AGENT']);
-	$ptohibit_browsers    = ['edge','trident','msie','firefox','opera','samsung'];
-	$ptohibit_browser_flg = false;
+	$prohibit_browsers    = ['edge','trident','msie','firefox','opera','samsung'];
+	$prohibit_browser_flg = false;
 	$recom_browser_flg    = false;
 
-	foreach ($ptohibit_browsers as $val) {
+	foreach ($prohibit_browsers as $val) {
 
 		if (strstr($ua,$val)) {
 
-			$ptohibit_browser_flg = true;
+			$prohibit_browser_flg = true;
 			break;
 
 		}
 
 	}
 
-	if (!$ptohibit_browser_flg) {
+	if (!$prohibit_browser_flg) {
 
 		if (is_ios() && strstr($ua,'safari') && !strstr($ua,'crios')) {
 
