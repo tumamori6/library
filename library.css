@@ -1,0 +1,28 @@
+
+.balloon-base {
+	position: relative;
+	transform-style: preserve-3d;
+}
+
+.balloon-base, .balloon-base::before {
+	background: #fff;
+	box-shadow: 0 0 10px 0 rgb(163 163 163 / 50%);
+}
+
+.balloon-base::before, .balloon-base::after {
+	content: '';
+	position: absolute;
+	width: 20px;
+	height: 20px;
+}
+
+.balloon-base.bottom-center::before, .balloon-base.bottom-center::after {
+	bottom: -10px;
+	left: 50%;
+	transform: translateX(-50%) rotate( 45deg) translateZ(-1px);
+}
+
+.balloon-base.bottom-center::after {
+	background: linear-gradient(-45deg, #fff 51%, transparent 51%);
+	transform: translateX(-50%) rotate(45deg) translateZ(1px);
+}
