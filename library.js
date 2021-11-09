@@ -243,3 +243,226 @@ function copyToClipboard(val){
 	alert(val+'をコピーしました。');
 	
 }
+
+$(function() {
+
+	//オートページング
+	$(window).on('scroll', function() {
+
+		var st = $(window).scrollTop();
+
+		if (st > (max_pos[options.layoutType] + redundant[options.layoutType])) {
+			max_pos[options.layoutType] = st;
+
+			if (options.incrementType == true) {
+				np = parseInt(np) + 1;
+			}
+
+			$(this).privateSingleton('ajaxRequest');
+
+		}
+
+	});
+
+	//キャッシュ初期値読み込み
+	cacheDocuments['np']        = np;
+	cacheDocuments['documents'] = $(options.cacheDom).html();
+
+
+});
+
+
+//auto-scroll-plugin
+(function( $ ){
+
+	const OverLay   = 'overlay';
+	const LoadClass = '.load';
+
+	var methods = {
+
+		init : function( options ) {
+
+			settings = $.extend(true, {
+
+				'userId'   : options.userId,
+				'ajaxUrl'  : options.ajaxUrl,
+				'appendDom': options.appendDom,
+				'cacheDom' : options.cacheDom,
+
+			}, options);
+
+		},
+
+
+		destroy : function( ) {
+
+			return this.each(function(){
+
+			})
+
+		},
+
+
+		ajaxLoadStart : function( ) {
+
+			$('body').addClass(OverLay);
+			$(LoadClass).show();
+
+		},
+
+
+		ajaxLoadEnd : function( ) {
+
+			$('body').removeClass(OverLay);
+			$(LoadClass).hide();
+
+		},
+
+
+
+		reqeustUsers : function( ) {
+
+			methods.ajaxLoadStart();
+
+			methods.ajaxRequest();
+
+			setTimeout(function() {
+				methods.ajaxLoadEnd();
+			}, 1000);
+
+		},
+
+
+		ajaxRequest : function( ) {
+			if(settings.userId){
+				var data={ 
+					ajax_request: ajax_request,
+					show_cnt    : show_cnt,
+					np          : np,
+					user_id     : settings.userId
+				}
+			}else{
+				var data={ 
+					ajax_request: ajax_request,
+					np          : np
+				}
+			}
+
+			$.ajax({
+				url         : settings.ajaxUrl,
+				type        : "get",
+				dataType    : 'html',
+				data        : data
+			}).done(function(datas, textStatus, errorThrown) {
+
+				$(settings.appendDom).append(datas);
+
+				cacheDocuments['np']        = np;
+				cacheDocuments['documents'] = $(settings.cacheDom).html();
+
+			});
+
+		},
+
+
+
+		cacheRequest : function( ) {
+
+			methods.ajaxLoadStart();
+
+			methods.ajaxRequest();
+
+			setTimeout(function() {
+				methods.ajaxLoadEnd();
+			}, 1000);
+
+		},
+
+
+		cacheReqDocuments : function ( ) {
+
+			$('.girls-list ul').remove();
+			$('.girls-list').append(cacheDocuments['documents']);
+			np = cacheDocuments['np'];
+
+		},
+
+	};
+
+
+	$.fn.privateSingleton = function( m ) {
+
+		if ( methods[m] ) {
+			return methods[m].apply( this, Array.prototype.slice.call( arguments, 1 ));
+
+		} else if ( typeof m === 'object' || ! m ) {
+
+			return methods.init.apply( this, arguments );
+
+		} else {
+			$.error( 'Method error' +  m);
+		}
+
+	};
+
+})( jQuery );
+
+
+$(this).privateSingleton( options );
+
+
+var ajax_request =1 ;
+var show_cnt = 20;
+var np = 1 ;
+
+var redundant = {
+	'grid' : 1000,
+	'list' : 800,
+	'three': 400,
+	'wide' : 2000
+};
+
+var max_pos = {
+	'grid' : 0, 
+	'list' : 0,
+	'three': 0,
+	'wide' : 0
+};
+
+var cacheDocuments = new Array();
+
+
+//auto-scroll-plugin use
+$(function() {
+
+	if(history.state != null){
+		$(options.cacheDom).html(history.state.html);
+		np = history.state.np;
+		max_pos[options.layoutType] = history.state.trigger;
+	}
+
+	$(document).on('click','.history-item',function(){
+		historyReg();
+	});
+
+});
+
+var historyReg = function(){
+
+	html = $(options.cacheDom).html();
+
+	history.pushState({
+		np:np,
+		trigger:max_pos[options.layoutType],
+		html:html,
+	},null);
+
+}
+
+var options = {
+	'ajaxUrl'       : 'xxx.php',
+ 'layoutType'    : 'list',
+	'incrementType' : true,
+	'appendDom'     : '',
+	'cacheDom'      : '',
+};
