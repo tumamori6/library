@@ -1,0 +1,42 @@
+<?php
+require_once('function.php');
+require_once('_define.php');
+?>
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+	<?include('_meta.php')?>
+
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css?<?=date('Ymd-His')?>">
+
+	<?if(ua_smt() == 'pc'){?>
+		<link rel="stylesheet" href="css/style_pc.css?<?=date('Ymd-His')?>">
+	<?}?>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-146473273-3"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-146473273-3');
+	</script>
+</head>
+<body>
+	<header>
+		<a href="https://hinata-antenna.info/">日向坂46アンテナ</a>
+		<?/***
+		<a class="sidemenu">
+			<img class="sidemenu-button" src="img/open.svg">
+		</a>
+		*/?>
+	</header>
+	<?//include_once('sidemenu.html');?>

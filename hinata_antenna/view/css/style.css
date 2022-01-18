@@ -1,0 +1,147 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c');
+
+body {
+	font-family: 'M PLUS Rounded 1c', sans-serif;
+	font-size: 16px;
+}
+
+header {
+	font-size: 30px;
+	text-align: center;
+	background: #00c1ff;
+	padding: 5vw;
+}
+
+header a {
+	text-decoration: none;
+	color: #fff;
+}
+
+footer {
+	height: 70px;
+	background: #333;
+	display: flex;
+	justify-content: space-between;;
+	align-items: center;
+	flex-direction: column;
+	padding: 20px;
+}
+
+footer a {
+	color: #fff;
+	text-decoration: underline;
+	font-size: 20px;
+}
+
+img {
+	width: 20vw;
+	height: 20vw;
+	margin-right: auto;
+}
+
+a {
+	text-decoration: none;
+	color: #333;
+	font-size: 18px;
+}
+
+li.item {
+	display: flex;
+	margin: 10px auto;
+	justify-content: center;
+	vertical-align: middle;
+	border-bottom: solid;
+	padding: 5vw 0;
+	width: 85%;
+	position: relative;
+}
+
+li.item>p {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+	line-height: 1.35;
+	padding: 0 10px;
+	width: 100%;
+}
+
+li.item>span {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin: 10px;
+	font-size: 14px;
+	text-align: right;
+}
+
+.pagination {
+	margin: 0 auto;
+	padding: 30px 0;
+}
+
+.pagination-list {
+	display: flex;
+	list-style: none;
+	width: 90%;
+	margin: 5vw auto;
+}
+
+.list-item {
+	display: flex;
+	margin: auto;
+}
+
+.list-item a {
+	border: solid 1px;
+	color: #333;
+	padding: 3vw;
+	border-radius: 1vw;
+	text-align: center;
+	margin: auto;
+}
+
+.list-item.active a {
+	background: #00c1ff;
+	color: #fff;
+	border-color: #00c1ff;
+}
+
+.sidemenu-button {
+	width: auto;
+	height: 5vw;
+}
+
+.sidemenu-wrap {
+	display: none;
+	top: 0;
+	height: 100vh;
+	width: 60vw;
+	position: fixed;
+	background: rgba(0, 0, 0, .8);
+	right: 0;
+}
+
+.sidemenu-wrap.open {
+	display: block;
+}
+
+.sidemenu {
+	z-index: 11;
+	position: absolute;
+	margin-left: 14vw;
+}
+
+.category-list {
+	margin-top: 6vh;
+	list-style: none;
+}
+
+.sidemenu-wrap .category-list a {
+	padding: 10px;
+	text-align: center;
+	display: block;
+	border-bottom: solid 1px;
+	color: #fff;
+}

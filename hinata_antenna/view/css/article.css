@@ -1,0 +1,50 @@
+main.article {
+	background: #fff;
+}
+
+.contents {
+	padding: 10px;
+}
+
+.contents img {
+	width: 100%;
+	height: auto;
+	margin: auto;
+	display: flex;
+}
+
+.contents p {
+	word-wrap: break-word;
+}
+
+h1 {
+	font-size: 16px;
+	margin: 10px auto;
+}
+
+.contents img.thumnail {
+	margin: 10px auto 30px;
+}
+
+.relation-article h2 {
+	margin: 0 10px;
+}
+
+.relation-article ul {
+	padding: 5px 10px 20px;
+}
+
+.relation-article a {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	color: #333;
+}
+
+.relation-article a:visited {
+	color: #aaa;
+}
+
+li {
+	display: flex;
+}
