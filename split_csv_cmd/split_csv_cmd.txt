@@ -1,0 +1,3 @@
+split -l 行数 ファイル名 分割後のファイル名 //指定行数に分割
+for fname in 分割後のファイル名*; do mv $fname $fname.csv; done //リネーム
+for fname in 分割後のファイル名*; do sed -i '1ia' $fname; done //1行追加
