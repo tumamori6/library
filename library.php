@@ -215,3 +215,78 @@ function sortByKey($array,$key_name,$order){
 	return $array;
 
 }
+
+
+/*
+@param  array $this_week_files
+@return bool
+*/
+
+function hasTodayText($this_week_files){
+
+	$bool = false;
+
+	foreach($this_week_files as $f){
+
+		if (strpos($f, date('Ymd')) !== false) {
+			$bool = true;
+		}
+	
+	}
+
+	return $bool;
+
+}
+
+/*
+@param  string $target
+@return array
+*/
+function getThisWeekFiles($target){
+
+	$this_week_files = [];
+	$all_files       = glob($target);
+
+	for ($i = -6; $i <= 0; $i++) {
+		$d      = new DateTime($i . ' day');
+		$days[] = $d->format('Ymd');
+	}
+
+	foreach ($all_files as $file) {
+		foreach ($days as $d) {
+			if (strpos($file, $d) !== false) {
+				$this_week_files[] = $file;
+			}
+		}
+	}
+
+	return $this_week_files;
+
+}
+
+
+/*
+@param  array $base_datas
+@param  charcode $from $to
+@return array
+*/
+function formatFileDatas($base_datas, $from, $to){
+
+	$formatted_datas = [];
+
+	foreach ($base_datas as $datas) {
+
+		$data = explode(',', $datas);
+		$item = [];
+
+		foreach ($data as $val) {
+			$item[] = mb_convert_encoding($val, $from, $to);
+		}
+
+		$formatted_datas[] = $item;
+
+	}
+
+	return $formatted_datas;
+
+}
