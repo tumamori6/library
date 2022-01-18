@@ -1,0 +1,4 @@
+Host sakura
+  Hostname 160.16.139.140
+  User root
+  IdentityFile ~/.ssh/sakura
