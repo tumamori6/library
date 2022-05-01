@@ -290,3 +290,62 @@ function formatFileDatas($base_datas, $from, $to){
 	return $formatted_datas;
 
 }
+
+function registCsv($csv_up_path){
+
+	header('Content-Type: text/html; charset=utf-8');
+	set_time_limit(240);
+
+	$msg = '';
+
+	if(is_uploaded_file($_FILES["csvfile"]["tmp_name"])){
+
+		$file_tmp_name = $_FILES["csvfile"]["tmp_name"];
+		$file_name     = $_FILES["csvfile"]["name"];
+		$chg_file_name = date("YmdHis").".csv";
+
+		if(pathinfo($file_name, PATHINFO_EXTENSION) != 'csv'){
+
+			$msg = 'CSVファイルのみ対応しています。';
+
+		}elseif(move_uploaded_file($file_tmp_name, $csv_up_path . $chg_file_name)){
+
+			chmod($csv_up_path . $chg_file_name, 0644);
+			$file = $csv_up_path.$chg_file_name;
+			$base_datas = file($file);
+			$formatted_datas = array_slice(formatFileDatas($base_datas, "utf-8", "sjis-win"), 1);
+
+			$query = User::query();
+
+			foreach($formatted_datas as $d){
+
+				if(!User::where('id', $d[1])->exists()){
+
+					$query->create([
+						'id' => $d[1],
+						'is_delete' => 0,
+					]);
+
+				}
+		
+			}
+
+			$msg = "ファイル".$file_name."をアップロードしました。";
+
+		}else{
+
+			$msg = "ファイルをアップロードできません。";
+
+		}
+
+	}else{
+
+		$msg = 'ファイルが選択されていません。';
+
+	}
+
+	return view('csv')->with([
+		'msg'  => $msg,
+	]);
+
+}

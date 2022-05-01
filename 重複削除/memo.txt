@@ -1,0 +1,10 @@
+約2000万レコードのデータを最適化しております。単純に条件に一致するデータを一度にdeleteすると非常に時間がかかる為、以下の流れで対応
+
+・必要なデータだけの一時テーブルを作成
+CREATE TABLE `{table名}_temp`(SELECT * FROM `{table名}`WHERE {抽出条件});
+↓
+・主キー等、必要なインデックスをはる
+↓
+・テーブル名をリネーム
+ALTER TABLE `{table名}` RENAME TO `{table名}_old`;
+ALTER TABLE `{table名}_temp` RENAME TO `{table名}`;
